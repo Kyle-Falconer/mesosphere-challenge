@@ -31,7 +31,7 @@ class elevator:
 	
 		if len(self.goal_floors) > 0:
 			direction = self.goal_floors[0][1]
-			print("direction: "+str(direction))
+			# print("direction: "+str(direction))
 			if direction < 0 :
 				# going down
 				temp_floor = temp_floor - 1
@@ -86,14 +86,14 @@ class elevatorControlSystem:
 	
 	def step(self):
 		for i in range(0, len(self.elevators)):
-			print('elevator['+str(i)+']')
+			# print('elevator['+str(i)+']')
 		
 			if len(self.pickup_requests) > 0:
 				pickup = self.pickup_requests.pop()
-				print("sending pickup request "+str(pickup)+" to elevator "+str(i))
+				# print("sending pickup request "+str(pickup)+" to elevator "+str(i))
 				self.update(i, self.elevators[i].get_next_floor(), pickup)
 			else:
-				print("no pickup request; sending elevator "+str(i)+" to next goal floor")
+				# print("no pickup request; sending elevator "+str(i)+" to next goal floor")
 				self.update(i, self.elevators[i].get_next_floor(), self.elevators[i].get_next_floor())
 		return None
 		
