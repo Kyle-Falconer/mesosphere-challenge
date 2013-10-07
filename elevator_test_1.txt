@@ -1,0 +1,10 @@
+status
+pickup 3 -1
+status
+step
+pickup 2 1
+status
+step
+pickup 1 1
+status
+step

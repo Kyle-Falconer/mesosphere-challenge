@@ -1,7 +1,7 @@
 Mesosphere Challenge
 ====================
 
-
+### Problem Specification
 
 Design and implement an elevator control system. What data structures,
 interfaces and algorithms will you need? Your elevator control system should
@@ -45,3 +45,27 @@ different floor, so there could be a few goal floors queued up.
 Please provide a source tarball (or link to a GitHub repository) containing
 code in the language of your choice, as well as a README discussing your
 solution (and providing build instructions).
+
+
+#### Assumptions
+Each time step enables an elevator to reach its goal floor within that timeframe. That is, it takes an elevator 0 time to reach its destination.
+
+### Usage and Examples
+
+    > python elevators.py (number of elevators)
+
+The program will then prompt, waiting for commands.
+
+#### sample input
+
+	2			// number of elevators
+	status		// print out status
+	pickup 3 -1	// pickup request from floor 3 to go down
+	status		// print out status
+	step		// time tick
+	pickup 2 1	// pickup request from floor 3 to go down
+	status		// print out status
+	step		// time tick
+	pickup 1 1	// pickup request from floor 1 to go up
+	status		// print out status
+	step		// time tick
