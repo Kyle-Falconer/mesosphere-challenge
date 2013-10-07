@@ -21,12 +21,12 @@ system. In the end, your control system should provide an interface for:
 
 For example, we could imagine in Scala an interface like this:
 
-  trait ElevatorControlSystem {
-    def status(): Seq[(Int, Int, Int)]
-    def update(Int, Int, Int)
-    def pickup(Int, Int)
-    def step()
-  }
+	trait ElevatorControlSystem {
+		def status(): Seq[(Int, Int, Int)]
+		def update(Int, Int, Int)
+		def pickup(Int, Int)
+		def step()
+	}
 
 Here we have chosen to represent elevator state as 3 integers:
 
