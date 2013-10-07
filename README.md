@@ -42,9 +42,7 @@ example, the elevator state only has one goal floor; but it is conceivable
 that an elevator holds more than one person, and each person wants to go to a
 different floor, so there could be a few goal floors queued up.
 
-Please provide a source tarball (or link to a GitHub repository) containing
-code in the language of your choice, as well as a README discussing your
-solution (and providing build instructions).
+=========================================
 
 
 #### Assumptions and Limitations
@@ -54,6 +52,8 @@ The algorithm implemented is very naïve, using brute-force, first-in-first-out 
 
 #### Known issues:
 Update and step commands are not fully implemented.
+
+No load-balancing implemented. If `step` is called after a pickup request, then all pickup requests will be handled by the first elevator.
 
 ### Usage and Examples
 
@@ -68,7 +68,7 @@ The program will then prompt, waiting for commands.
  * pickup floor_number direction - adds a pickup request to the pending requests queue. The arguments (floor_number, direction) are separated by spaces.
  * quit - exits the program.
 
-#### sample input/output (using provided "elevator_test_1.txt"
+#### sample input (using provided "elevator_test_1.txt")
 
 	> python elevators.py 3 < elevator_test_1.txt
 	
@@ -76,7 +76,7 @@ The program will then prompt, waiting for commands.
 	pickup 3 -1	// pickup request from floor 3 to go down
 	status		// print out status
 	step		// time tick
-	pickup 2 1	// pickup request from floor 3 to go down
+	pickup 2 1	// pickup request from floor 3 to go up
 	status		// print out status
 	step		// time tick
 	pickup 1 1	// pickup request from floor 1 to go up
