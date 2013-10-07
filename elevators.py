@@ -4,7 +4,7 @@
 # Mesosphere Programming Challenge
 # <2013-10-07 13:24 CDT>
 
-import optparse, os, sys
+import optparse, sys
 
 class elevator:
 	
@@ -15,13 +15,31 @@ class elevator:
 		"""
 		self.id = id
 		self.current_floor = 1
-		self.goal_floors = []
+		self.goal_floors = list()
 	
 	def state(self):
 		"""
 		Reports on the current state of this elevator.
 		"""
 		return [self.id, self.current_floor, self.goal_floors]
+		
+
+		
+	def get_next_floor(self):
+		temp_floor = self.current_floor
+	
+	
+		if len(self.goal_floors) > 0:
+			direction = self.goal_floors[0][1]
+			print("direction: "+str(direction))
+			if direction < 0 :
+				# going down
+				temp_floor = temp_floor - 1
+			else :
+				#going up
+				temp_floor = temp_floor + 1
+			
+		return temp_floor
 	
 	def update(self, cur_floor, goal_floor):
 		"""
@@ -32,12 +50,12 @@ class elevator:
 		""" 
 		self.cur_floor = cur_floor
 		
-		while cur_floor in self.goal_floors:
-			self.goal_floors.remove(cur_floor)
+		for floor in self.goal_floors:
+			if self.cur_floor == floor[0]:
+				self.goal_floors.remove(floor)
 		
 		self.goal_floors.append(goal_floor)
 
-	
 	
 		
 class elevatorControlSystem:
@@ -67,16 +85,16 @@ class elevatorControlSystem:
 		return None
 	
 	def step(self):
-		for elevator in self.elevators:
-			if len(elevator.goal_floors) == 0 : continue
-			next_floor = elevator.goal_floors.pop(0)
+		for i in range(0, len(self.elevators)):
+			print('elevator['+str(i)+']')
+		
 			if len(self.pickup_requests) > 0:
 				pickup = self.pickup_requests.pop()
-				print("sending pickup request "+pickup+" to elevator "+e.id)
-				elevator.update(next_floor, pickup)
+				print("sending pickup request "+str(pickup)+" to elevator "+str(i))
+				self.update(i, self.elevators[i].get_next_floor(), pickup)
 			else:
-				print("no pickup request; sending elevator "+e.id+" to next goal floor")
-				elevator.update(next_floor, elevator.goal_floor.pop(0))
+				print("no pickup request; sending elevator "+str(i)+" to next goal floor")
+				self.update(i, self.elevators[i].get_next_floor(), self.elevators[i].get_next_floor())
 		return None
 		
 		
@@ -84,11 +102,7 @@ def main():
 	args = sys.argv[1:]
 	print('number of elevators: '+ args[0])
 	ecs = elevatorControlSystem(int(args[0]))
-	print(ecs.status())
 	
-	
-
-		
 	while True:
 		try:
 			line = input('ecs> ')
@@ -102,7 +116,7 @@ def main():
 		elif line == "step":
 			ecs.step()
 		elif line.startswith('pickup'):
-			ecs.pickup(line.split(' ')[1], line.split(' ')[2])
+			ecs.pickup(int(line.split(' ')[1]), int(line.split(' ')[2]))
 
 
 if __name__ == '__main__':

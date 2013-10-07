@@ -8,3 +8,4 @@ step
 pickup 1 1
 status
 step
+quit

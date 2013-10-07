@@ -47,8 +47,13 @@ code in the language of your choice, as well as a README discussing your
 solution (and providing build instructions).
 
 
-#### Assumptions
-Each time step enables an elevator to reach its goal floor within that timeframe. That is, it takes an elevator 0 time to reach its destination.
+#### Assumptions and Limitations
+Each time step enables an elevator to reach one floor either above or below its current floor within that timeframe. That is, it takes an elevator one time tick to reach one floor.
+
+The algorithm implemented is very naïve, using brute-force, first-in-first-out order for pickup requests and drop-offs. This could potentially make one of the elevators very busy while the others are waiting around.
+
+#### Known issues:
+Update and step commands are not fully implemented.
 
 ### Usage and Examples
 
@@ -56,9 +61,17 @@ Each time step enables an elevator to reach its goal floor within that timeframe
 
 The program will then prompt, waiting for commands.
 
-#### sample input
+#### Possible commands:
 
-	2			// number of elevators
+ * status - returns the status of all the elevators in the form of a list of triples. Each triple represents one elevator: (Elevator ID, Floor Number, Goal Floor Number).
+ * step - allows one unit of time to pass, effectively telling the elevators to go to the next goal floor.
+ * pickup floor_number direction - adds a pickup request to the pending requests queue. The arguments (floor_number, direction) are separated by spaces.
+ * quit - exits the program.
+
+#### sample input/output (using provided "elevator_test_1.txt"
+
+	> python elevators.py 3 < elevator_test_1.txt
+	
 	status		// print out status
 	pickup 3 -1	// pickup request from floor 3 to go down
 	status		// print out status
